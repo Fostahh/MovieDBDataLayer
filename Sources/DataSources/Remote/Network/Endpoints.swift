@@ -15,17 +15,21 @@ protocol Endpoint {
 enum Endpoints {
     
     enum Gets: Endpoint {
-        case movie
+        case discover(page: Int)
         
         var path: String {
             switch self {
-            case .movie: return "/movie/changes"
+            case .discover(let page): 
+                return "/discover/movie"
             }
         }
         
         var queryParams: [URLQueryItem] {
             switch self {
-            case .movie: return []
+            case .discover(let page):
+                return [
+                    URLQueryItem(name: "page", value: String(page))
+                ]
             }
         }
     }

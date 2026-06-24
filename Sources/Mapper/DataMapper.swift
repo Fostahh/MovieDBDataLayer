@@ -6,11 +6,26 @@
 //
 
 enum DataMapper {
-    static func mapMoviesResponseToMoviesEntity(response: MoviesResponse) -> [MovieEntity] {
-        response.movies.map {
+    static func mapDiscoverMovieResponseToMovieEntity(response: DiscoverMovieResponse) -> [MovieEntity] {
+        guard let results = response.results else { return [] }
+        
+        return results.map {
             MovieEntity(
+                adult: $0.adult,
+                backdropPath: $0.backdropPath,
+                genreIDS: $0.genreIDS,
                 id: $0.id,
-                adult: $0.adult ?? false
+                title: $0.title,
+                originalLanguage: $0.originalLanguage,
+                originalTitle: $0.originalTitle,
+                overview: $0.overview,
+                popularity: $0.popularity,
+                posterPath: $0.posterPath,
+                releaseDate: $0.releaseDate,
+                softcore: $0.softcore,
+                video: $0.video,
+                voteAverage: $0.voteAverage,
+                voteCount: $0.voteCount
             )
         }
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RemoteDataSource {
-    func getMovies() async throws -> MoviesResponse
+    func fetchDiscoverMovies(page: Int) async throws -> DiscoverMovieResponse
 }
 
 final class RemoteDataSourceImpl: RemoteDataSource {
@@ -19,7 +19,7 @@ final class RemoteDataSourceImpl: RemoteDataSource {
         self.networkManager = networkManager
     }
     
-    func getMovies() async throws -> MoviesResponse {
-        try await networkManager.request(Endpoints.Gets.movie)
+    func fetchDiscoverMovies(page: Int) async throws -> DiscoverMovieResponse {
+        try await networkManager.request(Endpoints.Gets.discover(page: page))
     }
 }
