@@ -10,6 +10,8 @@ import Foundation
 protocol RemoteDataSource {
     func fetchDiscoverMovies(page: Int, genreId: Int?) async throws -> DiscoverMovieResponse
     func fetchGenres() async throws -> GenreListResponse
+    func fetchMovieDetail(movieId: Int) async throws -> MovieDetailResponse
+    func fetchReviews(movieId: Int, page: Int) async throws -> ReviewListResponse
 }
 
 final class RemoteDataSourceImpl: RemoteDataSource {
@@ -26,5 +28,13 @@ final class RemoteDataSourceImpl: RemoteDataSource {
 
     func fetchGenres() async throws -> GenreListResponse {
         try await networkManager.request(Endpoints.Gets.genres)
+    }
+
+    func fetchMovieDetail(movieId: Int) async throws -> MovieDetailResponse {
+        try await networkManager.request(Endpoints.Gets.movieDetail(movieId: movieId))
+    }
+
+    func fetchReviews(movieId: Int, page: Int) async throws -> ReviewListResponse {
+        try await networkManager.request(Endpoints.Gets.reviews(movieId: movieId, page: page))
     }
 }
