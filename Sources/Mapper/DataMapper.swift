@@ -29,4 +29,12 @@ enum DataMapper {
             )
         }
     }
+
+    static func mapGenreResponseToGenreEntity(response: GenreListResponse) -> [GenreEntity] {
+        guard let genres = response.genres else { return [] }
+
+        return genres.map {
+            GenreEntity(id: $0.id, name: $0.name)
+        }
+    }
 }
