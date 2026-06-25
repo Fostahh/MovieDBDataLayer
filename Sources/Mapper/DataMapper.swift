@@ -37,4 +37,40 @@ enum DataMapper {
             GenreEntity(id: $0.id, name: $0.name)
         }
     }
+
+    static func mapMovieDetailResponseToMovieDetailEntity(response: MovieDetailResponse) -> MovieDetailEntity {
+        MovieDetailEntity(
+            id: response.id,
+            title: response.title,
+            overview: response.overview,
+            backdropPath: response.backdropPath,
+            posterPath: response.posterPath,
+            releaseDate: response.releaseDate,
+            runtime: response.runtime,
+            voteAverage: response.voteAverage,
+            voteCount: response.voteCount,
+            tagline: response.tagline,
+            genres: response.genres?.map { GenreEntity(id: $0.id, name: $0.name) }
+        )
+    }
+
+    static func mapReviewListResponseToReviewPageEntity(response: ReviewListResponse) -> ReviewPageEntity {
+        let reviews = (response.results ?? []).map {
+            ReviewEntity(
+                id: $0.id,
+                author: $0.author,
+                content: $0.content,
+                rating: $0.authorDetails?.rating,
+                createdAt: $0.createdAt,
+                avatarPath: $0.authorDetails?.avatarPath
+            )
+        }
+
+        return ReviewPageEntity(
+            reviews: reviews,
+            page: response.page ?? 1,
+            totalPages: response.totalPages ?? 1,
+            totalResults: response.totalResults ?? reviews.count
+        )
+    }
 }
