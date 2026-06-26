@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ReviewListResponse: Codable {
+struct ReviewListResponse: Decodable {
     let page: Int?
     let results: [ReviewResponse]?
     let totalPages: Int?
@@ -20,7 +20,7 @@ struct ReviewListResponse: Codable {
     }
 }
 
-struct ReviewResponse: Codable {
+struct ReviewResponse: Decodable {
     let id: String?
     let author: String?
     let content: String?
@@ -34,7 +34,7 @@ struct ReviewResponse: Codable {
     }
 }
 
-struct AuthorDetailsResponse: Codable {
+struct AuthorDetailsResponse: Decodable {
     let rating: Double?
     let avatarPath: String?
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct MovieEntity: Codable {
+public struct MovieEntity: Sendable {
     public let adult: Bool?
     public let backdropPath: String?
     public let genreIDS: [Int]?
@@ -18,4 +18,38 @@ public struct MovieEntity: Codable {
     public let softcore, video: Bool?
     public let voteAverage: Double?
     public let voteCount: Int?
+    
+    public init(
+        adult: Bool?,
+        backdropPath: String?,
+        genreIDS: [Int]?,
+        id: Int?,
+        title: String?,
+        originalLanguage: String?,
+        originalTitle: String?,
+        overview: String?,
+        popularity: Double?,
+        posterPath: String?,
+        releaseDate: String?,
+        softcore: Bool?,
+        video: Bool?,
+        voteAverage: Double?,
+        voteCount: Int?
+    ) {
+        self.adult = adult
+        self.backdropPath = backdropPath
+        self.genreIDS = genreIDS
+        self.id = id
+        self.title = title
+        self.originalLanguage = originalLanguage
+        self.originalTitle = originalTitle
+        self.overview = overview
+        self.popularity = popularity
+        self.posterPath = posterPath
+        self.releaseDate = releaseDate
+        self.softcore = softcore
+        self.video = video
+        self.voteAverage = voteAverage
+        self.voteCount = voteCount
+    }
 }

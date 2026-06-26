@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct DiscoverMovieResponse: Codable {
+struct DiscoverMovieResponse: Decodable {
     let page: Int?
     let results: [MovieResponse]?
 }
 
-struct MovieResponse: Codable {
+struct MovieResponse: Decodable {
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?

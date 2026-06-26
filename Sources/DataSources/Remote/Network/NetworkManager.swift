@@ -7,13 +7,6 @@
 
 import Foundation
 
-public enum NetworkError: Error {
-    case invalidURL
-    case invalidResponse
-    case unacceptableStatusCode(Int)
-    case decodingFailed(Error)
-}
-
 protocol NetworkManager {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
 }
@@ -54,19 +47,21 @@ final class NetworkManagerImpl: NetworkManager {
     }
     
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T {
-        let request = try makeRequest(for: endpoint)
-        let (data, response) = try await session.data(for: request)
-        
-        guard let http = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
-        guard (200..<300).contains(http.statusCode) else {
-            throw NetworkError.unacceptableStatusCode(http.statusCode)
-        }
-        
         do {
+            let request = try makeRequest(for: endpoint)
+            let (data, response) = try await session.data(for: request)
+            
+            guard let http = response as? HTTPURLResponse else { throw NetworkError.invalidResponse }
+            guard (200..<300).contains(http.statusCode) else {
+                throw NetworkError.unacceptableStatusCode(http.statusCode)
+            }
+            
             let decoder = JSONDecoder()
             return try decoder.decode(T.self, from: data)
+        } catch let error as NetworkError {
+            throw error
         } catch {
-            throw NetworkError.decodingFailed(error)
+            throw NetworkError.requestFailed(error)
         }
     }
     
