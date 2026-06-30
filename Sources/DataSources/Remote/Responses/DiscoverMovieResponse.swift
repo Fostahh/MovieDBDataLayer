@@ -9,7 +9,13 @@ import Foundation
 
 struct DiscoverMovieResponse: Decodable {
     let page: Int?
+    let totalPages: Int?
     let results: [MovieResponse]?
+    
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPages = "total_pages"
+    }
 }
 
 struct MovieResponse: Decodable {

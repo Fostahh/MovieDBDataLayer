@@ -6,7 +6,7 @@
 //
 
 public protocol MovieRepository {
-    func getMovies(page: Int, genreId: Int?) async throws -> [MovieEntity]
+    func getMovies(page: Int, genreId: Int?) async throws -> MoviePageEntity
     func getGenres() async throws -> [GenreEntity]
     func getMovieDetail(movieId: Int) async throws -> MovieDetailEntity
     func getReviews(movieId: Int, page: Int) async throws -> ReviewPageEntity
@@ -19,7 +19,7 @@ final class MovieRepositoryImpl: MovieRepository {
         self.remoteDataSource = remoteDataSource
     }
 
-    func getMovies(page: Int, genreId: Int?) async throws -> [MovieEntity] {
+    func getMovies(page: Int, genreId: Int?) async throws -> MoviePageEntity {
         try await DataMapper.mapDiscoverMovieResponseToMovieEntity(
             response: remoteDataSource.fetchDiscoverMovies(page: page, genreId: genreId)
         )
