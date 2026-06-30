@@ -7,6 +7,12 @@
 
 import Foundation
 
+public struct MoviePageEntity: Sendable {
+    public let movies: [MovieEntity]
+    public let page: Int
+    public let totalPages: Int
+}
+
 public struct MovieEntity: Sendable {
     public let adult: Bool?
     public let backdropPath: String?
