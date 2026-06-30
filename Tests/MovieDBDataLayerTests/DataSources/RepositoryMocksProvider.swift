@@ -34,6 +34,7 @@ class MockRemoteDataSource: RemoteDataSource {
     func getMockDiscoverMoviResponse() -> DiscoverMovieResponse {
         DiscoverMovieResponse(
             page: 1,
+            totalPages: 5,
             results: [MovieResponse(
                 adult: true,
                 backdropPath: "Backdrop Path",

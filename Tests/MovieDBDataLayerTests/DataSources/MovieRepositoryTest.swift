@@ -23,18 +23,19 @@ struct MovieRepositoryTests {
         remoteDataSourceMock.discoverMoviesResult = .success(remoteDataSourceMock.getMockDiscoverMoviResponse())
 
         let entity = try await movieRepository.getMovies(page: 1, genreId: nil)
-        #expect(entity.count == 1)
-        #expect(entity.first?.backdropPath == "Backdrop Path")
-        #expect(entity.first?.adult == true)
+        #expect(entity.totalPages == 5)
+        #expect(entity.movies.count == 1)
+        #expect(entity.movies.first?.backdropPath == "Backdrop Path")
+        #expect(entity.movies.first?.adult == true)
     }
     
     @Test func getMovies_onSuccess_withResultsNil() async throws {
         remoteDataSourceMock.discoverMoviesResult = .success(
-            DiscoverMovieResponse(page: 1, results: nil)
+            DiscoverMovieResponse(page: 1, totalPages: 5, results: nil)
         )
 
         let entity = try await movieRepository.getMovies(page: 1, genreId: nil)
-        #expect(entity.isEmpty)
+        #expect(entity.movies.isEmpty)
     }
 
     @Test func getMovies_onFailed_invalidURL() async {
