@@ -57,7 +57,11 @@ final class NetworkManagerImpl: NetworkManager {
             }
             
             let decoder = JSONDecoder()
-            return try decoder.decode(T.self, from: data)
+            do {
+                return try decoder.decode(T.self, from: data)
+            } catch {
+                throw NetworkError.decodingFailed(error)
+            }
         } catch let error as NetworkError {
             throw error
         } catch {
