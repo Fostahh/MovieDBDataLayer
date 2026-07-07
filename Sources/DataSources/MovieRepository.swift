@@ -5,7 +5,7 @@
 //  Created by Mohammad Azri Khairuddin on 24/06/26.
 //
 
-public protocol MovieRepository {
+public protocol MovieRepository: Sendable {
     func getMovies(page: Int, genreId: Int?) async throws -> MoviePageEntity
     func getGenres() async throws -> [GenreEntity]
     func getMovieDetail(movieId: Int) async throws -> MovieDetailEntity

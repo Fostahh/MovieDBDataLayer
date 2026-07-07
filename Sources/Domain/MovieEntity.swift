@@ -11,6 +11,12 @@ public struct MoviePageEntity: Sendable {
     public let movies: [MovieEntity]
     public let page: Int
     public let totalPages: Int
+    
+    public init(movies: [MovieEntity], page: Int, totalPages: Int) {
+        self.movies = movies
+        self.page = page
+        self.totalPages = totalPages
+    }
 }
 
 public struct MovieEntity: Sendable {

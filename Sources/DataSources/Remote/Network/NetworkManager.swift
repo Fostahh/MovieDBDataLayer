@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NetworkManager {
+protocol NetworkManager: Sendable {
     func request<T: Decodable>(_ endpoint: Endpoint) async throws -> T
 }
 

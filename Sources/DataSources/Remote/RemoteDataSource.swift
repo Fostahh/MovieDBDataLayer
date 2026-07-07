@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RemoteDataSource {
+protocol RemoteDataSource: Sendable {
     func fetchDiscoverMovies(page: Int, genreId: Int?) async throws -> DiscoverMovieResponse
     func fetchGenres() async throws -> GenreListResponse
     func fetchMovieDetail(movieId: Int) async throws -> MovieDetailResponse

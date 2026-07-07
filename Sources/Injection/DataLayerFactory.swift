@@ -14,7 +14,7 @@ public enum DataLayerFactory {
     }
 }
 
-protocol NetworkEnvironment {
+protocol NetworkEnvironment: Sendable {
     var url: String { get }
     var authToken: String { get }
 }
