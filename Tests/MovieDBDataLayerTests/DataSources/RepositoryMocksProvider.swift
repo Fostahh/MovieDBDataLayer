@@ -8,7 +8,7 @@
 @testable import MovieDBDataLayer
 import Foundation
 
-class MockRemoteDataSource: RemoteDataSource {
+final class MockRemoteDataSource: RemoteDataSource, @unchecked Sendable {
     
     var discoverMoviesResult: Result<DiscoverMovieResponse, Error> = .failure(NSError())
     func fetchDiscoverMovies(page: Int, genreId: Int?) async throws -> DiscoverMovieResponse {
